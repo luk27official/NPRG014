@@ -11,11 +11,12 @@ properties.each {entry ->
     code += "\t${entry.value.name} ${entry.key}\n"
 }
 code += "}\n\n"
-code += "return new $className()"
+code += "return $className"
 println code
 
 
-def object = shell.evaluate(code)
+def clazz = shell.evaluate(code)
+def object = clazz.newInstance() //instead of using the `new` keyword
 object.name = "Joe"
 object['age'] = 20
 println 'Call the object: ' + object.name + " age " + object['age']

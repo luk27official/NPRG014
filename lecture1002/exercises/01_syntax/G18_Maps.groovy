@@ -12,8 +12,12 @@ final capitals = [
 ]
 assert capitals.size() == 10
 
+assert capitals.cz == capitals['cz']
+
+capitals.pl = "Warszav"
+capitals.ir = "Dublin"
 //TASK Add Poland and Ireland to the map
-//assert capitals.size() == 12
+assert capitals.size() == 12
 
 println "All countries: ${capitals.keySet()}"
 println "The capital of CZ: ${capitals['cz']}"

@@ -4,6 +4,6 @@ fib = {
 }.memoize()
 
 long b = System.currentTimeMillis()
-fib(90G)
+println fib(90G)
 long a = System.currentTimeMillis()
-println((a - b) / 1000 + ' seconds') // about 0.002 seconds on my machine
+println((a - b) / 1000 + " seconds") // about 0.002 seconds on my machine

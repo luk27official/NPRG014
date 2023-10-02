@@ -9,5 +9,5 @@ println person.name
 person.jump()
 person.eat()
 
-final action = 'jump'
+final action = 'jump' //it's possible to call a method by a string
 person[action]()

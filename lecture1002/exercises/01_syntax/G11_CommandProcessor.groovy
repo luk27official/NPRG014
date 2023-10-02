@@ -23,6 +23,17 @@ class Plane {
         println "Changing altitude to $altitude"
         this.altitude = altitude
     }
+
+    void performCommand(String value, Closure code) {
+        //this.with(code) //this works as well
+        Closure customCommand = code.clone() //to ensure that it does not get changed
+        customCommand.delegate = this
+        customCommand.call()
+    }
+
+    void call(String value, Closure code) {
+        this.performCommand(value, code)
+    }
 }
 
 final takeoff = {
@@ -46,6 +57,6 @@ println '*** We are in flight now ***'
 plane.performCommand('Land', land)
 
 //TASK Make the following code pass, too. Use the doCall() method to handle function calls on the Plane objects.
-//plane('Take off', takeoff)
-//println '*** We are in flight now ***'
-//plane('Land', land)
+plane('Take off', takeoff)
+println '*** We are in flight now ***'
+plane('Land', land)

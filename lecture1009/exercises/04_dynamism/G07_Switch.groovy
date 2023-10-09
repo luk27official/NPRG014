@@ -32,7 +32,7 @@ assert Fri in (Wed..Fri)
 class Month {
     String name
     
-    public boolean isCase(final o) {
+    public boolean isCase(final o) { //this customizes the switch statement
         this.name.startsWith(o.toString())
     }
 }

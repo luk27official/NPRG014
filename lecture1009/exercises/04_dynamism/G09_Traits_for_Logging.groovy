@@ -30,6 +30,7 @@ loggedDuck.introduceYourself()
 
 loggedDuck.log("Starting")
 loggedDuck.fly()
+loggedDuck.name = "Natalie"
 loggedDuck.log("Landing")
 
 //NOTE A proper class implementing the trait could have been used instead

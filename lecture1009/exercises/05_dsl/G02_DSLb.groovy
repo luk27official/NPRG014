@@ -1,4 +1,4 @@
-def o1 = order pizza with tomato and mushrooms to "Malostranske namesti"
+def o1 = order pizza with tomato and mushrooms to "Malostranske namesti", 25
 def o2 = order cake with plums and apples and cream to "Malostranske namesti"
 def o3 = order pizza menuDuJour() to "Malostranske namesti"
 
@@ -19,13 +19,14 @@ def order(requestedMeal) {
 class Order2 {
     Food meal
     String address = ''
+    Integer number
     final meals = [
             pizza: new Pizza(order: this),
             cake: new Cake(order: this)
     ]
 
     String toString() {
-        "*An order of $meal to $address*"
+        "*An order of $meal to $address" + (number != null ? " " + number : "") + "*"
     }
 }
 
@@ -48,10 +49,16 @@ abstract class Food {
         order
     }
 
+    def to(address, number) {
+        order.address = address
+        order.number = number
+        order
+    }
+
     abstract String description();
 
     String toString() {
-        "pizza with ${ingredients.join(' and ')}"
+        description() + " with ${ingredients.join(' and ')}"
     }
 }
 

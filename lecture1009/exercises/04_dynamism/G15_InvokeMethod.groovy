@@ -16,13 +16,19 @@ println "Expert employees ${company.findAllExperiencedEmployees().name}"
 println "Junior employees ${company.findAllJuniorEmployees().name}"
 println "Fresh employees  ${company.findAllFreshEmployees().name}"
 
+println company.hi()
+
 //TASK Describe how the dynamic queries work
 //TASK Enable search for employees with names starting with the letter 'M'
-//println "M-employees ${company.findAllMEmployees()*.name}"
+println "M-employees ${company.findAllMEmployees()*.name}"
 
 
 class Company {
     List<Employee> employees = []
+
+    public String hi() {
+        return employees.size().toString()
+    }
 
     public Object invokeMethod(String methodName, Object o) {
         def matcher = methodName =~ 'findAll(.*)Employees'
@@ -33,6 +39,9 @@ class Company {
             }
             if (action.toLowerCase() in ['junior', 'fresh']) {
                 return employees.findAll {it.age <= 30}
+            }
+            if (action == "M") {
+                return employees.findAll {it.getName()[0] == "M"}
             }
         }
 

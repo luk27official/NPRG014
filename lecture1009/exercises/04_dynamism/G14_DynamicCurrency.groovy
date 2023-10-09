@@ -13,7 +13,13 @@ class DynamicMoney {
 }
 
 //TASK Enhance the Integer class with currencies so that the following code passes
+Integer.metaClass.getEur {->
+    return new DynamicMoney(amount: delegate, currency: "EUR")
+}
 
+Integer.metaClass.getUsd {->
+    return new DynamicMoney(amount: delegate, currency: "USD")
+}
 println 10.eur
 println 10.eur + 20.eur
 println 10.usd + 20.usd

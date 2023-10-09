@@ -38,7 +38,7 @@ println(m as String)
 
 println "============= as Boolean ============="
 def report(String msg) {println "LOG: $msg"}
-if(m) {
+if(m) { //m == null does not apply here!! it's overriden
     report(m as String)
 }
 

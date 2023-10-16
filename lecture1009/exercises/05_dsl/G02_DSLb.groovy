@@ -48,6 +48,7 @@ abstract class Food {
         order.address = address
         order
     }
+    
 
     def to(address, number) {
         order.address = address
@@ -58,7 +59,7 @@ abstract class Food {
     abstract String description();
 
     String toString() {
-        description() + " with ${ingredients.join(' and ')}"
+        "${description()} with ${ingredients.join(' and ')}"
     }
 }
 

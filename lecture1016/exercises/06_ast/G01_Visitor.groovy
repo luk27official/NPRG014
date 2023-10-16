@@ -1,6 +1,7 @@
 abstract class Expression {
     public void acceptVisitor(Visitor v) {
         //TASK implement this method to make the visitor pattern work
+        v.visit(this) // this works because we are in Groovy. In other languages, it would look different (abstract)!
     }
 }
 

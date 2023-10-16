@@ -76,4 +76,4 @@ println calculator.subtract(10, 5)
 
 //TASK uncomment the following lines and see the reported problems, then compare with the error you'd get without the applying the transformation to the divide10By() method
 //println calculator.divide10By(0)
-//println calculator.subtract(5, 10)
+println calculator.subtract(5, 10)

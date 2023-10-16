@@ -23,9 +23,8 @@ public @interface Unsupported {}
 
 @GroovyASTTransformation(phase = SEMANTIC_ANALYSIS)
 public class UnsupportedTransformation implements ASTTransformation {
-
+    
     public void visit(ASTNode[] astNodes, SourceUnit source) {
-        //...
         // TASK The "Unsupported" transformation should make the annotated methods throw the UnsupportedOperationException
         // Fill in the missing AST generation code to make the script pass
         // You can take inspiration from exercises
@@ -36,7 +35,35 @@ public class UnsupportedTransformation implements ASTTransformation {
         // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/expr/package-summary.html
         // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/stmt/package-summary.html
         // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/tools/package-summary.html        
-        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/tools/GeneralUtils.html        
+        // http://docs.groovy-lang.org/docs/groovy-latest/html/api/org/codehaus/groovy/ast/tools/GeneralUtils.html
+
+        MethodNode annotatedMethod = astNodes[1]
+
+        def methodStatements = annotatedMethod.code.statements
+        if(!methodStatements.empty) {
+            addError("Unsupported operations must be empty", annotatedMethod, source)
+        }
+        BlockStatement block = createStatements()
+        methodStatements.add(0, block)
+    }
+
+    public void addError(String msg, ASTNode expr, SourceUnit source) {
+        int line = expr.lineNumber
+        int col = expr.columnNumber
+        SyntaxException se = new SyntaxException(msg + '\n', line, col)
+        SyntaxErrorMessage sem = new SyntaxErrorMessage(se, source)
+        source.errorCollector.addErrorAndContinue(sem)
+    }
+
+    def createStatements() {
+        def statements = """
+            throw new Exception('Precondition violated.')
+        """
+
+        AstBuilder ab = new AstBuilder()
+        List<ASTNode> res = ab.buildFromString(CompilePhase.SEMANTIC_ANALYSIS, statements)
+        BlockStatement bs = res[0]
+        return bs
     }
 }
 

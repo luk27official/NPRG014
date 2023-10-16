@@ -31,6 +31,22 @@ abstract class Visitor<T> {
     abstract T visit(MultExpr expr)
 }
 
+class ComputingVisitor extends Visitor<Integer> {
+    Integer visit(IntegerConstant expr) {
+        return expr.value
+    }
+    Integer visit(PlusExpr expr) {
+        def leftValue = expr.left.acceptVisitor(this)
+        def rightValue = expr.right.acceptVisitor(this)
+        return leftValue + rightValue
+    }
+    Integer visit(MultExpr expr) {
+        def leftValue = expr.left.acceptVisitor(this)
+        def rightValue = expr.right.acceptVisitor(this)
+        return leftValue * rightValue
+    }    
+}
+
 class PrintingVisitor extends Visitor<Void> {
     Void visit(IntegerConstant expr) {
         print expr.value
@@ -50,5 +66,5 @@ expr.acceptVisitor(new PrintingVisitor())
 
 //TASK add a visitor that will compute the value of the expression
 
-//println ""
-//println expr.acceptVisitor(new ComputingVisitor())
+println ""
+println expr.acceptVisitor(new ComputingVisitor())

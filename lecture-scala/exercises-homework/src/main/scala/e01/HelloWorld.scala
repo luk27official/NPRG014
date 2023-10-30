@@ -21,8 +21,3 @@ object HelloWorld:
 	def printHelloUniverse(): Unit =
 		println("Hello universe")
 	end printHelloUniverse
-
-
-
-
-

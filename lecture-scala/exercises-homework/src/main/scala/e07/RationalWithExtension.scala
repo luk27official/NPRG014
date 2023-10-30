@@ -35,10 +35,15 @@ object RationalOps:
 	extension (lhs: Int)
 		def ~ (dummy: R.type) = Rational(lhs)
 
+		def + (rhs: Rational) = Rational(lhs) + rhs
+		def - (rhs: Rational) = Rational(lhs) - rhs
+		def * (rhs: Rational) = Rational(lhs) * rhs
+		def / (rhs: Rational) = Rational(lhs) / rhs
+
 
 object RationalWithExtensionTest:
 	def main(args: Array[String]): Unit =
-		import RationalOps.*
+		import RationalOps.* // this represents the static behavior
 
 		val a = Rational(3, 5)
 		val b = Rational(6, 7)
@@ -56,3 +61,4 @@ object RationalWithExtensionTest:
 		 *
 		 * println(1/2 ~ R)
 		 */
+		println(1/2 ~ R)

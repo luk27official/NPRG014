@@ -15,6 +15,18 @@ object Functions:
 					sort(xs.filter(pivot.<))
 			)
 
+	def sort(xs: Array[Int], fcn: (Int, Int) => Int): Array[Int] =
+		if (xs.length <= 1) then
+			xs
+		else
+			val pivot = xs(xs.length / 2)
+			Array.concat(
+					// use the function fcn to compare the elements
+					sort(xs.filter(fcn(pivot, _) > 0)),
+					xs.filter(fcn(pivot, _) == 0),
+					sort(xs.filter(fcn(pivot, _) < 0))
+			)
+
 	def concatArray[T](items: Array[T], fcn: T => String) =
 		val bld = new StringBuilder
 
@@ -41,7 +53,7 @@ object Functions:
 		val conc = (x: Int) => s"${x} "
 		println(concatArray(otherNumbers, conc))
 
-		println(concatArray(otherNumbers, (_: Int) + " "))
+		// println(concatArray(otherNumbers, (_: Int) + " "))
 
 		/* ASSIGNMENT:
 		 * Write another sort function that will accept the comparison function, which takes two integers on input and returns one integer on output 
@@ -51,4 +63,7 @@ object Functions:
      * val yetOtherNumbers = sort(Array(1,4,2,9,-1), _ - _)
 		 * println(concatArray(yetOtherNumbers, conc))
 		 */
+		
+		val yetOtherNumbers = sort(Array(1,4,2,9,-1), _ - _)
+		println(concatArray(yetOtherNumbers, conc))
 

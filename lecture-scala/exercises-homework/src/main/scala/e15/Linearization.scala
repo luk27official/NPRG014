@@ -11,7 +11,7 @@ class Animal:
 		println("Animal.eat")
 
 
-trait WarmBlooded extends Animal :
+trait WarmBlooded extends Animal:
 	println("WarmBlooded initialized")
 
 	override def eat(): Unit =
@@ -19,7 +19,7 @@ trait WarmBlooded extends Animal :
 		super.eat()
 
 
-trait Furry extends Animal with WarmBlooded:
+trait Furry extends Animal:
 	println("Furry initialized")
 
 	override def eat(): Unit =
@@ -27,7 +27,7 @@ trait Furry extends Animal with WarmBlooded:
 		super.eat()
 
 
-trait HasLegs extends Animal with WarmBlooded:
+trait HasLegs extends Animal:
 	println("HasLegs initialized")
 
 	override def eat(): Unit =
@@ -42,8 +42,15 @@ trait FourLegged extends HasLegs:
 		println("FourLegged.eat")
 		super.eat()
 
+trait XYZ extends Animal with Furry:
+	println("XYZ initialized")
 
-class Cat extends Animal with Furry with FourLegged:
+	override def eat(): Unit =
+		println("XYZ.eat")
+		super.eat()
+
+
+class Cat extends XYZ with FourLegged:
 	println("Cat initialized")
 
 	override def eat(): Unit =

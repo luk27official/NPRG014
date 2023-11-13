@@ -28,7 +28,7 @@ object JillsPrefs:
   given prompt: PreferredPrompt =
     PreferredPrompt("Your wish> ")
   given drink: PreferredDrink =
-    PreferredDrink("cofee")
+    PreferredDrink("coffee")
 
 
 object GreeterTest:
@@ -47,5 +47,7 @@ object GreeterTest:
     *   relax>
     */
 
-    Greeter.greet("Jill")
+    val drink = new PreferredDrink("water")
+    Greeter.greet("Jill")(using JoesPrefs.prompt, drink)
+    //Greeter.greet("Jill")
 

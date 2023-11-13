@@ -16,7 +16,6 @@ trait Ordered[T]:
 	def <=(that: T) = (this compare that) <= 0
 	def >=(that: T) = (this compare that) >= 0
 
-
 class Rational(n: Int, d: Int) extends Ordered[Rational]:
 	require(d != 0)
 
@@ -33,7 +32,7 @@ class Rational(n: Int, d: Int) extends Ordered[Rational]:
 	def /~ (that: Rational) = new Rational(numer * that.denom, denom * that.numer)
 	def unary_- = new Rational(-numer, denom)
 
-	override def toString = numer + "/" + denom
+	override def toString = s"$numer/$denom"
 	private def gcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
 
 	def compare(that: Rational) =
@@ -64,6 +63,6 @@ object Traits:
 		/* ASSIGNMENT:
 		 * Introduce a new trait VerboseComparable that adds operations #<, #<=, #>, #>=, which return a string result as follows:
 		 * 
-		 * println(a #>= b) // 3/2 is more or equal to 73/56
+		 * println(a #>= b) // 3/2 is greater or equal to 73/56
 		 * println(a #< b)	// 3/2 isn't strictly less than 73/56	
 		 */

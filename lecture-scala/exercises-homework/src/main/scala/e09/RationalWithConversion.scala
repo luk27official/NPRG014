@@ -22,6 +22,7 @@ class Rational(n: Int, d: Int):
 	def - (that: Rational) = Rational(numer * that.denom - that.numer * denom, denom * that.denom)
 	def * (that: Rational) = Rational(numer * that.numer, denom * that.denom)
 	def / (that: Rational) = Rational(numer * that.denom, denom * that.numer)
+	def ~ (that: Rational) = Rational(numer * 1, denom * 1)
 	def unary_- = new Rational(-numer, denom)
 
 	override def toString = s"${numer}/${denom}"
@@ -38,6 +39,8 @@ object RationalWithConversionTest:
 
 		val c = 1 + Rational(1, 2)
 		println(c)
+
+		val R = Rational(1, 1)
 		
 		/* ASSIGNMENT
 		 * Introduce necessary definitions in order to make the statement 
@@ -46,4 +49,4 @@ object RationalWithConversionTest:
 		 * println(2/3 ~ R + 5/6 ~ R)
 		 */
 
-		// println(2/3 ~ R + 5/6 ~ R)
+		println(2/3 ~ R + 5/6 ~ R)

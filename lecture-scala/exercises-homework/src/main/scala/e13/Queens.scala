@@ -26,7 +26,7 @@ object Queens:
 				
 			placeQueens(n)
 		
-		val queensNo = 4
+		val queensNo = 8
 		val qnss = queens(queensNo)
 		
 		for (qns <- qnss) do
@@ -41,3 +41,5 @@ object Queens:
 				println("-" * (qn(1) - 1) + "Q" + "-" * (queensNo - qn(1)))
 			
 			println()
+
+		println("Number of solutions: " + qnss.size)

@@ -78,8 +78,9 @@ object SortedListTest:
 		
 		/* QUESTION
 		 * Why do the lines 1-2 of the following snippet work?
-		 * 
-		 * val list6 = list5.asListDynamic[B]
-		 * println(list6.head)
-		 * val head = list6.head
 		 */
+		
+		val list6 = list5.asListDynamic[B]
+		println(list6.head)
+		//val list7 = list5.asListStatic[B]
+		//val head = list6.head

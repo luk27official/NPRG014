@@ -30,6 +30,7 @@ object JsonInterp:
 		val married = false
 
 		// The following two declarations of the string are equivalent
+		// keep an eye on the double quotes for string values
 		val jo = s"""{ "name": "$name", "age": $age, "married": $married }"""
 		println(jo)
 

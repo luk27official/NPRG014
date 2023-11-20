@@ -12,6 +12,13 @@ case class Number(num: Double) extends Expr
 case class Var(name: String) extends Expr
 case class BinOp(op: String, left: Expr, right: Expr) extends Expr
 
+object `+`:
+  def unapply(op: BinOp) =
+    if op.op == "+" then Some((op.left, op.right)) else None
+
+object `*`:
+  def unapply(op: BinOp) =
+    if op.op == "*" then Some((op.left, op.right)) else None
 
 object ExpressionsPFWithExtractor:
 
@@ -22,6 +29,7 @@ object ExpressionsPFWithExtractor:
 
     /* ASSIGNMENT:
      * Add needed extractors, such that the code below compiles and works correctly.
+     */
 
     val sExpr = expr.simplifyUsing {
       case Number(0) + e => e
@@ -31,4 +39,3 @@ object ExpressionsPFWithExtractor:
     }
 
     println(sExpr)
-     */

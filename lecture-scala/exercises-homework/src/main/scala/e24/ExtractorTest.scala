@@ -37,6 +37,10 @@ object ExtractorTest:
     )
 
   def main(args: Array[String]): Unit =
+    val myEmail = EMail("bures", "d3s.mff.cuni.cz")
+    val EMail(myName, domain) = myEmail
+    println(s"$myName @ $domain")
+
     validateEmail(EMail("bures", "d3s.mff.cuni.cz"))
     validateEmail(EMail("doe", "xyz.natur.cuni.cz"))
     validateEmail("XXX")

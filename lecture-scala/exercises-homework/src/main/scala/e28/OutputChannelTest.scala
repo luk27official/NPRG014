@@ -33,5 +33,7 @@ object OutputChannelTest:
 		out = AAOutputChannel
 		
 		out = AOutputChannel
+
+		out.write(new AA(1))
 		
 		// out = ABOutputChannel  --  does not compile

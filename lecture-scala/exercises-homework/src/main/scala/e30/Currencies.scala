@@ -30,6 +30,8 @@ abstract class Currency:
 
     def designation = currency.designation
 
+    def to(that: Currency): Currency#CurrencyAmount =
+      that.from(this)
 
   def make(amnt: Long) = new CurrencyAmount {
     val amount = amnt
@@ -78,3 +80,5 @@ object Currencies:
 
     println(dollars to EUR)
     */
+
+    println(dollars to EUR)

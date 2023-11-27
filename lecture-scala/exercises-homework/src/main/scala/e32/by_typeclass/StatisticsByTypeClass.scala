@@ -18,6 +18,9 @@ object StatisticsByTypeClass:
   // Explicit declaration of given parameter
   def mean[T](xs: Array[T])(using ev: NumberLike[T]): T =
     xs.reduce(_ + _) / xs.size
+  
+  def mean[T](xs: Vector[T])(using ev: NumberLike[T]): T =
+    xs.reduce(_ + _) / xs.size
 
   // Shorthand syntax - so call context bound (“a context parameter that depends on a type parameter”)
   def median[T: NumberLike](xs: Array[T]): T = xs(xs.size / 2)
@@ -40,6 +43,22 @@ object StatisticsByTypeClass:
     def minus(x: Int, y: Int) = x - y
     def divideByInt(x: Int, y: Int) = x / y
 
+object StaticsByTypeClassDurationImplicits:
+  import StatisticsByTypeClass.*
+
+  given NumberLike[Duration] with
+    def plus(x: Duration, y: Duration) = Duration(x.totalSeconds + y.totalSeconds)
+    def minus(x: Duration, y: Duration) = Duration(x.totalSeconds - y.totalSeconds)
+    def divideByInt(x: Duration, y: Int) = Duration(x.totalSeconds / y)
+  
+  /*
+  extension (xs: Vector[Duration])
+    def median: Duration = StatisticsByTypeClass.median(xs.toArray)
+    def quartiles: (Duration, Duration, Duration) = StatisticsByTypeClass.quartiles(xs.toArray)
+    def iqr: Duration = StatisticsByTypeClass.iqr(xs.toArray)
+    def mean: Duration = StatisticsByTypeClass.mean(xs.toArray)
+  */
+
 
 class Duration(val totalSeconds: Double):
   def this(min: Int, sec: Double) = this(min * 60 + sec)
@@ -55,19 +74,16 @@ object Duration:
   def apply(min: Int, sec: Double) = new Duration(min, sec)
 
 
-
-
 object StatisticsByTypeClassTest:
 
   def main(args: Array[String]): Unit =
     import StatisticsByTypeClass.*
-
     println(mean(Array(5, 10, 15)))
 
     /* ASSIGNMENT
        Add a new type class implementation for the Duration such that the code below executes as expected.
-
-    import StaticsByTypeClassDurationImplicits._
-    println(mean(Vector(Duration(1, 0), Duration(1, 30), Duration(2,0))))
      */
 
+    import StaticsByTypeClassDurationImplicits.given_NumberLike_Duration
+    //import StaticsByTypeClassDurationImplicits._
+    println(mean(Vector(Duration(1, 0), Duration(1, 30), Duration(2,0))))

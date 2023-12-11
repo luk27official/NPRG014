@@ -4,6 +4,9 @@ testMethod := method(x, y,
 
 testMethod(1, 2)
 
+debugPrintln := method(a,
+	"#{call message previous name} = #{self}" interpolate println
+)
 
 /* ASSIGNMENT
  * Write method debugPrintln, which for the statements below
@@ -13,6 +16,5 @@ testMethod(1, 2)
 
 x := 3
 y := 4
-// x debugPrintln    // "x = 3"
-// y debugPrintln    // "y = 4"
-
+x debugPrintln    // "x = 3"
+y debugPrintln    // "y = 4"

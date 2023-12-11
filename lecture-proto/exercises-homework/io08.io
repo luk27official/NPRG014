@@ -47,16 +47,20 @@ a pd
 
 a hello("World")
 
-
+newB := constructorMethod(Shape, prefix,
+	tmp := prefix
+	self prefix := tmp
+)
 
 /* ASSIGNMENT:
  * Write a method "nonvirtualMethod", which returns a method that is
  * always exectuted in the context of the object on which "nonvirtualMethod" 
  * was called.
  */
- 
+
 //Shape hello2 := Shape nonvirtualMethod(name,
 //	"#{prefix}Hello #{name}!" interpolate println
 //)
 
-//a hello2("World") // Should output "$ Hello World!"
+a := newB("$ ")
+a hello("World") // Should output "$ Hello World!"

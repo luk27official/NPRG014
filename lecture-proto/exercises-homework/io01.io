@@ -4,7 +4,7 @@
 
 helloMsg := "Hello universe!"
 
-updateSlot("helloMsg", "Hello universe!")
+updateSlot("helloMsg", "Hello universe v2!")
 
 helloMsg println
 

@@ -21,6 +21,6 @@ m next next next next arguments first arguments println  // list()
 
 
 tgt := Object clone
-tgt x := 2
+tgt x := 3
 m doInContext(tgt) println     // 2 \n 6
 

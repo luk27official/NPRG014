@@ -27,7 +27,7 @@ Object methodClosure := method(methodName,
 x := 1
 y := 2
 f1 := method((x + y) println)
-f2 := methodClosure("f1", "x", 3+y, "y", 8)
+f2 := methodClosure("f1", "x", 3, "y", 8)
 f1
 f2
 
@@ -36,8 +36,12 @@ f2
  * Create function makeAdder that returns a function which adds a previously defined value to its parameter.
  */
 
-// incr3 := makeAdder(3) 
-// incr5 := makeAdder(5)
+makeAdder := method(value,
+	block(x, value + x) setIsActivatable(true)
+)
 
-// incr3(7) println   // 10
-// incr5(7) println   // 12
+incr3 := makeAdder(3) 
+incr5 := makeAdder(5)
+
+incr3(7) println   // 10
+incr5(7) println   // 12

@@ -9,6 +9,10 @@ myif(19 > 5,
 	writeln("19 > 5. Incorrect.")
 )
 
+myuntil := method(body, condition,
+	while(!condition eval, body eval)
+)
+
 /* ASSIGNMENT:
  * Create function myuntil, which takes parameters <body>, <condition>. The function
  * executes the body as long as the condition is false. The evaluation happens
@@ -16,9 +20,9 @@ myif(19 > 5,
  */
 
 // This should count to three		
-// b := 1 
-// myuntil(
-// 	b println
-//	b = b + 1,
-//	b > 3
-//)
+b := 1 
+myuntil(
+	b println
+	b = b + 1,
+	b > 3
+)

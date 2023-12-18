@@ -3,12 +3,17 @@
 // --------------------------------------------------------------------------------------
 
 let el = document.getElementById("out")
-if (el == null) throw "out element missing"
+if (el == null && 1 == 1) throw "out element missing"
+// 1 == 1 is not enough...
+el = el!;
 
 // TODO: Can you come up with a correct null check 
 // that breaks the flow-sensitive type checking?
 
-let input = document.createElement("input")
+let tag: "input" = "input";
+let input = document.createElement(tag)
+input.value = "World"
+
 let btn = document.createElement("button")
 btn.innerText = "Greeet!"
 btn.onclick = () => { alert("Hello " + input.value); }
@@ -41,7 +46,24 @@ function increment(fourbit:[Bit,Bit,Bit,Bit]) {
   //
   // NOTE: If you index into fourbit using [i], the checker gives up.
   // You can try this using 'set' and 'get' which enforce range check.
-  fourbit[0] = 1;
+
+  /*
+  let i = 0;
+  while(fourbit[i] === 1 && i < fourbit.length) {
+    fourbit[i] = 0;
+    i++;
+  }
+  if (i < fourbit.length) fourbit[i] = 1;
+  */
+
+  let fr: FourRange = 0;
+  while(get(fourbit, fr) === 1) {
+    set(fourbit, fr, 0);
+    fr = fr + 1 as FourRange;
+    if (fr > 3) fr = 0; // this has to be runtime-checked
+    // fr = <FourRange>(fr + 1); // old syntax
+  }
+  set(fourbit, fr, 1);
 }
 
 let demo : MiniByte = [0,0,0,0]
@@ -72,20 +94,32 @@ type Cat = {
   sound:string
 }
 
+// additional overloads
+function createAnimal(species: "fish", name: string) : Fish
+function createAnimal(species: "cat", name: string, sound: string) : Cat
+
+function createAnimal(species: string, name: string, sound?: string): Fish | Cat {
+  switch(species) {
+    case "fish": return { "name": name };
+    case "cat": return { "name": name, "sound": sound };
+  }
+  throw "unknown";
+}
+
 // TODO: Implement an overloaded function 'createAnimal' that returns
 // the right type of animal, depending on the first parameter
 
-// let a1 = createAnimal("fish", "Moby")
-// let a2 = createAnimal("cat", "Cheshire cat", "We are all mad here")
+let a1 = createAnimal("fish", "Moby")
+let a2 = createAnimal("cat", "Cheshire cat", "We are all mad here")
 
 let animals = document.createElement("p")
 el.appendChild(animals)
 
 // NOTE: Uncomment the following
-// animals.innerHTML += a1.name + "<br />";
+animals.innerHTML += a1.name + "<br />";
 // animals.innerHTML += a1.sound + "<br />"; // This should be an error
-// animals.innerHTML += a2.name + "<br />";
-// animals.innerHTML += a2.sound + "<br />";
+animals.innerHTML += a2.name + "<br />";
+animals.innerHTML += a2.sound + "<br />";
 
 
 // --------------------------------------------------------------------------------------
@@ -107,8 +141,14 @@ interface Binary {
 type Expression = Binary | Constant
 
 function evaluate(expr:Expression) : number {
-  // TODO: Implement recursive evaluator of expressions
-  return -1;
+  switch(expr.kind) {
+    case "constant": return expr.value
+    case "binary":
+      switch(expr.operator) {
+        case "*": return evaluate(expr.left) * evaluate(expr.right)
+        case "+": return evaluate(expr.left) + evaluate(expr.right)
+      }
+  }
 }
 
 let konst = (n:number) : Expression => 
@@ -126,12 +166,12 @@ el.appendChild(evalres)
 // TASK #5: Implement well-typed join operation
 // --------------------------------------------------------------------------------------
 
-function join(a1:any[], a2:any[], key:string) : any[] {  
+function join<T, P, K extends string>(a1: (T & Record<K, string>)[], a2: (P & Record<K, string>)[], key: K) : any[] {  
   let res = []
   for(var i = 0; i<a1.length; i++) {
     for(var j = 0; j<a2.length; j++) {
-      let x : string = a1[i][key]
-      let y : string = a2[j][key]
+      let x: string = a1[i][key]
+      let y: string = a2[j][key]
       if (x == y) {
         let r = { ...a1[i], ...a2[j] }
         res.push(r)
